@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.springsource.org.apache.commons.dbcp-1.2.2.osgi">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/com.springsource.org.apache.commons.dbcp-1.2.2.osgi.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
