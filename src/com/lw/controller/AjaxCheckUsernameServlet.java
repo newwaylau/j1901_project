@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 
 @WebServlet("/check")
 public class AjaxCheckUsernameServlet extends HttpServlet {
+
     private UserService userService = new UserServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

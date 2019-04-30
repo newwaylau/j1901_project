@@ -110,6 +110,7 @@ public class GoodsInfoAddServlet extends HttpServlet {
             if (i != 0) {
                 // session.setAttribute("updMenu","yes");
                 response.sendRedirect("/goodsinfo");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
