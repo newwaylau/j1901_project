@@ -30,5 +30,6 @@ public class AjaxCheckUsernameServlet extends HttpServlet {
             writer.close();
         }
 
+
     }
 }
