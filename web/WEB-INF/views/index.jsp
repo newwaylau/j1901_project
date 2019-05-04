@@ -77,7 +77,7 @@
 																		<dt><span title="${small.name}">${small.name}</span></dt>
 																		<c:forEach items="${giList}" var="info">
 																		<c:if test="${small.id eq info.goods_fatherid}">													
-																		<dd><a title="${info.goods_name}" href="GoodsInfoServlet?method=queryById&id=${info.id}"><span>${info.goods_name}</span></a></dd>	
+																		<dd><a title="${info.goods_name}" href="/introduction.do?id=${info.id}"><span>${info.goods_name}</span></a></dd>
 																		</c:if>	
 																		</c:forEach>	
 																	</dl>

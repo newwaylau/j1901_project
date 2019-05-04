@@ -88,19 +88,20 @@
 						</div>
 						<div class="clear"></div>
 						<ul class="addressChoose">
-							
+							<c:forEach items="${addressList}" var="addr">
+
 								<!-- 默认地址：class="user-addresslist defaultAddr" -->
-									<li class="user-addresslist defaultAddr">
+								<li class="user-addresslist" id="ref_${addr.isdefault}">
 										<div class="address-left">
 											<div class="user DefaultAddr">
 												 <span class="buy-address-detail"></span>
-		                  						 <span class="buy-user">电话</span>
-												 <span class="buy-phone">123456789</span>
+		                  						 <span class="buy-user">${addr.shouHuoRen}</span>
+												 <span class="buy-phone">${addr.phone}</span>
 											</div>
 												
 											<div class="default-address DefaultAddr">
 												<span class="buy-line-title buy-line-title-type">收货地址：</span>
-												<span class="buy--address-detail">asdfdsafas</span>
+												<span class="buy--address-detail">${addr.address}</span>
 											</div>
 												<ins class="deftip">默认地址</ins>
 										</div>
@@ -111,6 +112,7 @@
 											<a href="javascript:void(0);" onclick="delClick(this);">删除</a>
 										</div>
 								</li>
+							</c:forEach>
 						</ul>
 
 						<div class="clear"></div>
@@ -166,7 +168,7 @@
 							</div>
 							<div class="clear"></div>
 							
-					<c:forEach items="${shop_cat.list}" var="good">
+					<c:forEach items="${shopCart.goodsInfoDoMains}" var="goodsInfo">
 							<!-- 购物车 -->
 							<tr class="item-list">
 								<div class="bundle  bundle-last">
@@ -177,11 +179,11 @@
 												<li class="td td-item">
 													<div class="item-pic">
 														<a href="#" class="J_MakePoint">
-															<img src="images/" style="width: 80px; height: 80px" class="itempic J_ItemImg"></a>
+															<img src="images/${goodsInfo.goods_pic}" style="width: 80px; height: 80px" class="itempic J_ItemImg"></a>
 													</div>
 													<div class="item-info">
 														<div class="item-basic-info">
-															<a href="#" class="item-title J_MakePoint" data-point="tbcart.8.11">商品描述</a>
+															<a href="#" class="item-title J_MakePoint" data-point="tbcart.8.11">${goodsInfo.goods_description}</a>
 														</div>
 													</div>
 												</li>						
@@ -189,10 +191,10 @@
 													<div class="item-price price-promo-promo">
 														<div class="price-content">
 															<div class="price-line">
-																<em class="price-original">商品价格</em>
+																<em class="price-original">${goodsInfo.goods_price}</em>
 															</div>
 															<div class="price-line"> 
-																<em class="J_Price price-now" id="priceNow" tabindex="0">商品价格</em>
+																<em class="J_Price price-now" id="priceNow" tabindex="0">${goodsInfo.goods_price_off}</em>
 															</div>
 														</div>
 													</div>
@@ -204,7 +206,7 @@
 														<span class="phone-title">购买数量</span>
 														<div class="sl">
 															<input class="min am-btn" name="" type="button" value="-" id="jian"/> 
-															<input class="text_box" id="count" type="text" value="" 
+															<input class="text_box" id="count" type="text" value="${goodsInfo.count}"
 													          style="width: 30px; text-align: center;"/> 
 													          <input class="add am-btn" name="" type="button" value="+"  id="jia"/>
 														 <input type="hidden"  value="goodsId">
@@ -214,7 +216,7 @@
 											</li>
 											<li class="td td-sum">
 												<div class="td-inner">
-													<em tabindex="0" class="J_ItemSum number" id="singlePrice"><fmt:formatNumber type="number" value="" maxFractionDigits="1"/></em>
+													<em tabindex="0" class="J_ItemSum number" id="singlePrice"><fmt:formatNumber type="number" value="${totalPrice}" maxFractionDigits="1"/></em>
 												</div>
 											</li>
 											<li class="td td-oplist">
@@ -244,7 +246,8 @@
 									<div class="box">
 										<div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
 											<span class="price g_price ">
-                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee">88888</em>
+                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee"><fmt:formatNumber
+                            value="${totalPrice + 10}" pattern="0.00"></fmt:formatNumber></em>
 											</span>
 										</div>
 

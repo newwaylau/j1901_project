@@ -25,4 +25,6 @@ public interface GoodsInfoService {
     GoodsInfo getShowByNone();
 
     int addGoodsInfo1(String goods_name1, String goods_price1, String goods_price_off1, String goods_description1, String goods_pic1);
+
+    GoodsInfo getIntroductionById(int id, String table);
 }

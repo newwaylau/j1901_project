@@ -1,6 +1,8 @@
 package com.lw.service.impl;
 
 import com.lw.dao.GoodsInfoDao;
+import com.lw.dao.GoodsInfoDaoExtends;
+import com.lw.dao.impl.GoodsInfoDaoExtendsImpl;
 import com.lw.dao.impl.GoodsInfoDaoImpl;
 import com.lw.entity.GoodsInfo;
 import com.lw.entity.Page;
@@ -10,6 +12,7 @@ import java.util.List;
 
 public class GoodsInfoServiceImpl implements GoodsInfoService {
     private GoodsInfoDao goodsInfoDao = new GoodsInfoDaoImpl();
+    private GoodsInfoDaoExtends goodsInfoDaoExtends = new GoodsInfoDaoExtendsImpl();
     @Override
     public List<GoodsInfo> getGoodsInfoList() {
         return goodsInfoDao.getGoodsInfoList();
@@ -68,6 +71,11 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     public int addGoodsInfo1(String goods_name1, String goods_price1, String goods_price_off1, String goods_description1, String goods_pic1) {
         return goodsInfoDao.addGoodsInfo1(goods_name1,goods_price1,goods_price_off1,goods_description1,goods_pic1);
+    }
+
+    @Override
+    public GoodsInfo getIntroductionById(int id, String table) {
+        return goodsInfoDaoExtends.getIntroductionByIds(id,table);
     }
 
 }

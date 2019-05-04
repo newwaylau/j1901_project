@@ -19,7 +19,33 @@
 <link href="css/optstyle.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript">
-	
+    function add(id) {
+        var max = 10;
+        //输入框的商品数量
+        var count = $("#count_"+id).val();
+        if(count < max){
+            var url = "shopUpdate.do?id="+id+"&count=1";
+            $.get(url,function (data) {
+                location.reload();
+            });
+        }else{
+            $("count_"+id).val(max);
+        }
+    }
+    function sub(id) {
+        var min = 0;
+        //输入框的商品数量
+        var count = $("#count_"+id).val();
+        if(count > min){
+            var url = "shopUpdate.do?id="+id+"&count=-1";
+            $.get(url,function (data) {
+                location.reload();
+            });
+        }else{
+            $("count_"+id).val(min);
+        }
+    }
+
 </script>
 </head>
 
@@ -72,19 +98,20 @@
 						<div class="clear"></div>
 						<div class="bundle-main">
 						<!-- 购物车 -->
+							<c:forEach items="${shopCart.goodsInfoDoMains}" var="goodsInfoDomain">
 							<ul class="item-content clearfix">
 								
 								<li class="td td-item">
 									<div class="item-pic">
 										<a href="#" target="_blank" class="J_MakePoint"
 											data-point="tbcart.8.12"> <img
-											src="images/"
+											src="images/${goodsInfoDomain.goods_pic}"
 											style="width: 80px; height: 80px" class="itempic J_ItemImg"></a>
 									</div>
 									<div class="item-info">
 										<div class="item-basic-info">
 											<a href="#" target="_blank" title=""
-												class="item-title J_MakePoint" data-point="tbcart.8.11">商品描述</a>
+												class="item-title J_MakePoint" data-point="tbcart.8.11">${goodsInfoDomain.goods_description}</a>
 										</div>
 									</div>
 								</li>
@@ -98,11 +125,11 @@
 									<div class="item-price price-promo-promo">
 										<div class="price-content">
 													<div class="price-line">
-														<em class="price-original">促销价</em>
+														<em class="price-original">${goodsInfoDomain.goods_price}</em>
 													</div>
 														
 													<div class="price-line">
-														<em class="J_Price price-now" tabindex="0">商品价格</em>
+														<em class="J_Price price-now" tabindex="0">${goodsInfoDomain.goods_price_off}</em>
 													</div>
 										</div>
 									</div>
@@ -111,9 +138,9 @@
 									<div class="amount-wrapper ">
 										<div class="item-amount ">
 											<div class="sl">
-												<input class="min am-btn" name="" type="button" value="-" />
-											 <input class="text_box" id="count_id" type="text" value="" style="width: 30px; text-align: center;" /> 
-												<input class="add am-btn" name="" type="button" value="+"  />
+												<input class="min am-btn" name="" type="button" value="-" onclick="sub(${goodsInfoDomain.id})"/>
+											 <input class="text_box" id="count_${goodsInfoDomain.id}" type="text" value="${goodsInfoDomain.count}" style="width: 30px; text-align: center;" />
+												<input class="add am-btn" name="" type="button" value="+" onclick="add(${goodsInfoDomain.id})" />
 										
 											</div>
 										</div>
@@ -121,16 +148,17 @@
 								</li>
 								<li class="td td-sum">
 									<div class="td-inner">
-										<em tabindex="0" class="J_ItemSum number" >金额</em>
+										<em tabindex="0" class="J_ItemSum number" ><fmt:formatNumber value="${goodsInfoDomain.count*goodsInfoDomain.goods_price_off}" pattern="0.00"></fmt:formatNumber></em>
 									</div>
 								</li>
 								<li class="td td-op">
 									<div class="td-inner">
-									<a href="" data-point-url="#" class="delete"> 删除</a>
+									<a href="/shopDelete.do?id=${goodsInfoDomain.id}" data-point-url="#" class="delete"> 删除</a>
 									</div>
 								</li>
-							
+
 							</ul>
+							</c:forEach>
 						</div>
 					</div>
 				</tr>
@@ -141,7 +169,7 @@
 			<div class="float-bar-right">
 				<div class="amount-sum">
 					<span class="txt">已选商品</span> <em id="getnum"></em><span
-						class="txt">件</span>
+						class="txt">${shop_count}件</span>
 					<div class="arrow-box">
 						<span class="selected-items-arrow"></span> <span class="arrow"></span>
 					</div>
@@ -150,11 +178,11 @@
 					<span class="txt">合计:</span> 
 					<strong class="price">
 					¥<em id="J_Total"></em>
-					335
+						<fmt:formatNumber value="${totalPrice}" pattern="0.00"></fmt:formatNumber>
 					</strong>
 				</div>
 				<div class="btn-area">
-					<a href="success.jsp" id="J_Go" class="submit-btn submit-btn-disabled"
+					<a href="/shopPay.do" id="J_Go" class="submit-btn submit-btn-disabled"
 						aria-label="请注意如果没有选择宝贝，将无法结算"> <span>结&nbsp;算</span></a>
 				</div>
 			</div>

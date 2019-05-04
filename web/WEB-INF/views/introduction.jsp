@@ -66,15 +66,15 @@
 			<li class="am-active">内容</li>
 		</ol>
 		<script type="text/javascript">
-					$(function() {});
-					$(window).load(function() {
-						$('.flexslider').flexslider({
-							animation: "slide",
-							start: function(slider) {
-								$('body').removeClass('loading');
-							}
-						});
-					});
+					// $(function() {});
+					// $(window).load(function() {
+					// 	$('.flexslider').flexslider({
+					// 		animation: "slide",
+					// 		start: function(slider) {
+					// 			$('body').removeClass('loading');
+					// 		}
+					// 	});
+					// });
 				</script>
 
 		<!--放大镜-->
@@ -84,14 +84,14 @@
 
 				<div class="box">
 					<script type="text/javascript">
-								$(document).ready(function() {
-									$(".jqzoom").imagezoom();
-									$("#thumblist li a").click(function() {
-										$(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
-										$(".jqzoom").attr('src', $(this).find("img").attr("mid"));
-										$(".jqzoom").attr('rel', $(this).find("img").attr("big"));
-									});
-								});
+								// $(document).ready(function() {
+								// 	$(".jqzoom").imagezoom();
+								// 	$("#thumblist li a").click(function() {
+								// 		$(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
+								// 		$(".jqzoom").attr('src', $(this).find("img").attr("mid"));
+								// 		$(".jqzoom").attr('rel', $(this).find("img").attr("big"));
+								// 	});
+								// });
 							</script>
 
 					<div class="tb-booth tb-pic tb-s310">
@@ -110,7 +110,7 @@
 				<!--规格属性-->
 				
 				<div class="tb-detail-hd">
-					<h1>商品名称</h1><!--名称-->
+					<h1>${goodsInfo.goods_name}</h1><!--名称-->
 				</div>
 				<div class="tb-detail-list">
 					<!--价格-->
@@ -119,13 +119,13 @@
 						<li class="price iteminfo_price">
 							<dt>促销价</dt>
 							<dd>
-								<em>¥</em><b class="sys_item_price">12</b>
+								<em>¥</em><b class="sys_item_price">${goodsInfo.goods_price_off}</b>
 							</dd>
 						</li>
 						<li class="price iteminfo_mktprice">
 							<dt>原价</dt>
 							<dd>
-								<em>¥</em><b class="sys_item_mktprice">22</b>
+								<em>¥</em><b class="sys_item_mktprice">${goodsInfo.goods_price}</b>
 							</dd>
 						</li>
 						<div class="clear"></div>
@@ -182,7 +182,7 @@
 													<input id="value" name="pic" type="text" value="1" style="width: 30px;" /> 
 													<input id="add" class="am-btn am-btn-default" name="" type="button" value="+" /> 
 													<span id="Stock" class="tb-hidden">库存
-													<span class="stock" id="stock">12</span>件
+													<span class="stock" id="stock">${goodsInfo.goods_stock}</span>件
 													</span>
 												</dd>
 
@@ -417,7 +417,68 @@
 			<div>充值</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
+	<script type="text/javascript">
+        $(function () {
+            //1.获取库存
+            var max = ${goodsInfo.goods_stock};
 
+            //2.添加的点击事件
+            $("#add").click(function () {
+                //获取当前输入框的value值
+                var value = $("#value").val();
+                //判断数量是否在合理的范围内
+                if(value < max){
+                    //vlaue值为String类型,必须转换成int类型
+                    $("#value").val(parseInt(value)+1);
+                }else{
+                    $("#value").val(max);
+                }
+            })
+
+            //3.减少的点击事件
+            $("#min").click(function () {
+                //获取当前输入框的value值
+                var value = $("#value").val();
+                //判断数量是否在合理的范围内
+                if(value > 1){
+                    //vlaue值为String类型,必须转换成int类型
+                    $("#value").val(parseInt(value)-1);
+                }else{
+                    $("#value").val(1);
+                }
+            })
+
+            //4.输入框的失去光标焦点事件
+            $("#value").blur(function () {
+                debugger;
+                //获取当前数量
+                var value = $(this).val();
+                //判断数量是否在合理的范围内
+                if(value > max){
+                    $(this).val(max);
+                }else if(value <1){
+                    $(this).val(1);
+                }
+            })
+
+            //5.加入购物车的点击事件
+            $("#LikBasket").click(function () {
+                //1.获得商品id
+                var id = ${goodsInfo.id};
+
+                //2.获得商品购买数量
+                var count = $("#value").val();
+                var url="goodsInfoDoMain.do?id="+id+"&count="+count;
+                $.get(url,function (data) {
+                    // 刷新页面
+                    location.reload();
+                });
+            })
+        })
+
+	</script>
 </body>
 
 </html>
