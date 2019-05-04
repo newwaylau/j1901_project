@@ -13,4 +13,9 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> findByAddress(int id, String table) {
         return addressDao.findByAddress(id,table);
     }
+
+    @Override
+    public Address getAddressByPhone(String phone, String table) {
+        return addressDao.getAddressByPhone(phone,table);
+    }
 }

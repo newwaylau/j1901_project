@@ -262,8 +262,8 @@
 											<p class="buy-footer-address">
 												<span class="buy-line-title">收货人：</span>
 												<span class="buy-address-detail">   
-                                         <span class="buy-user" id="person">艾迪 </span>
-												<span class="buy-phone" id="tel">15871145629</span>
+                                         <span class="buy-user" id="person"> </span>
+												<span class="buy-phone" id="tel"></span>
 												</span>
 											</p>
 										</div>
@@ -273,7 +273,7 @@
 										<div class="go-btn-wrap">
 											<a id="go" class="btn-go" tabindex="0" title="点击此按钮，提交订单">提交订单</a>
 										</div>
-										<form action="" method="post" id="form">
+										<form action="/addorder.do" method="get" id="form">
 											<input type="hidden" name="shouhuoren" value="" id="buy_user"/>
 											<input type="hidden" name="phone" value="" id="phone"/>
 											<input type="hidden" name="address" value="" id="address"/>

@@ -51,4 +51,17 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return null;
     }
 
+    @Override
+    public T getAddressByPhone(String phone, String table) {
+        String sql="select * from "+table+" where phone = ?";
+        try {
+            T query = queryRunner.query(sql, new BeanHandler<T>(clazz), phone);
+            return query;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

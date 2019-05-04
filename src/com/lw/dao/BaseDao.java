@@ -9,4 +9,6 @@ public interface BaseDao<T>{
     T getIntroductionByIds(int id,String table);
 
     List<T> findByAddress(int id, String table);
+
+    T getAddressByPhone(String phone, String table);
 }

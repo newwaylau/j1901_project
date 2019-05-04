@@ -29,11 +29,14 @@
    <h2>您已成功付款</h2>
    <div class="successInfo">
      <ul>
-       <li>付款金额<em>¥元</em></li>
+       <li>付款金额<em>${totalPrice+10}¥元</em></li>
+
        <div class="user-info">
-         <p>收货人：afdfdf</p>
-         <p>联系电话：13678763456</p>
-         <p>收货地址：dfdfdfdf</p>
+
+         <p>收货人：${address.shouHuoRen}</p>
+         <p>联系电话：${address.phone}</p>
+         <p>收货地址：${address.address}</p>
+
        </div>
              请认真核对您的收货信息，如有错误请联系客服
                                

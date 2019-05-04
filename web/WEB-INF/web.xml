@@ -6,7 +6,7 @@
     
     <!--启动项目时访问路径-->
     <welcome-file-list>
-        <welcome-file>backlogin</welcome-file>
+        <welcome-file>login</welcome-file>
     </welcome-file-list>
 
     <!--配置过滤器-->
