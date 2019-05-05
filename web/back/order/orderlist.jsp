@@ -21,6 +21,67 @@
 <link href="css/orstyle.css" rel="stylesheet" type="text/css"/>
 <script src="AmazeUI-2.4.2/assets/js/jquery.min.js"/>
 <script src="AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
+	<script type="text/javascript">
+        $(function () {
+            //统计用户勾选个数
+            var count = 0;
+            //全选的点击事件
+            $("#idFlag").click(function () {
+                //获取全选按钮的状态
+                var flag = $(this).prop("checked");
+                //判断是否选中全选按钮
+                if(flag){
+                    //选中,计数器则为展示数的长度
+                    count = $(".ids").length;
+                }else{
+                    count = 0;
+                }
+                //获取每个用户选中框对象并且进行选中
+                $(".ids").each(function () {
+                    $(this).prop("checked",flag);
+                })
+            })
+
+            //用户选中状态
+            $(".ids").each(function () {
+                $(this).click(function () {
+                    //判断每个用户是否勾选
+                    if($(this).prop("checked")){
+                        //次数+1
+                        count++;
+                        //如果勾选次数为用户数量,则选中全选按钮
+                        if(count == $(".ids").length){
+                            $("#idFlag").prop("checked",true);
+                        }
+                    }else{
+                        count--;
+                        $("#idFlag").prop("checked",false);
+                    }
+                })
+            })
+
+            $("#batchDel").click(function () {
+                //1.创建存放id的数组
+                var idList = new Array();
+                //2.获取选中状态的用户id
+                $(".ids:checked").each(function () {
+                    //获取id值(value属性值)存放到数组中
+                    var id = $(this).val();
+                    idList.push(id);
+                })
+                //3.创建对象,用来存储数组
+                var obj = new Object();
+                obj.ids = idList;
+                //使用Ajax进行数据交换
+                $.post("/orderbatchdel",obj,function (data) {
+                    //页面刷新
+                    location.reload();
+                })
+
+            })
+        })
+	</script>
 </head>
 
 <body>
@@ -35,13 +96,13 @@
 	<div class="rightinfo">
 		<div class="tools">
 
-			<%--<ul class="toolbar">
+			<ul class="toolbar">
 				<li class="click"><span><img src="images/t01.png" /></span><a
 					href="back/user/adduser.jsp">添加</a></li>
 				<li class="click"><span><img src="images/t02.png" /></span>修改</li>
-				<li><span><img src="images/t03.png" /></span>删除</li>
+				<li id="batchDel"><span><img src="images/t03.png" /></span>删除</li>
 				<li><span><img src="images/t04.png" /></span>统计</li>
-			</ul>--%>
+			</ul>
 
 			<ul class="toolbar1">
 				<li><span><img src="images/t05.png" /></span>设置</li>
@@ -52,6 +113,9 @@
 				<div class="am-tabs-bd">
 					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
 						<div class="order-top">
+                            <div class="">
+								<th><input name="" type="checkbox" value="" id="idFlag"/></th>
+							</div>
 							<div class="th th-item">
 								<td class="td-inner">商品</td>
 							</div>
@@ -88,6 +152,7 @@
 										</div>
 											<div class="order-content">
 												<div class="order-left">
+													<td><input name="" type="checkbox" value="${order.id}" class="ids"/></td>
 													<ul class="item-list">
 														<li class="td td-item">
 															<div class="item-pic">
@@ -127,7 +192,7 @@
 															<div class="item-status">
 																<p class="Mystatus">交易成功</p>
 																<p class="order-info">
-																	<a href="orderinfo.html">订单详情</a>
+																	<a href="/goodsinfo">订单详情</a>
 																</p>
 															</div>
 														</li>

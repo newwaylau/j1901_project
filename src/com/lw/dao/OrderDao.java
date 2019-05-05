@@ -10,4 +10,6 @@ public interface OrderDao extends BaseDao<Order>{
     List<?> getUserList(int i, Integer pageSize);
 
     int deleteOrderById(int id, String table);
+
+    void batchDel(String[] ids);
 }

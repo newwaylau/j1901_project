@@ -60,4 +60,27 @@ public class OrderDaoImpl extends BaseDaoImpl<Order> implements OrderDao {
 
         return 0;
     }
+
+    @Override
+    public void batchDel(String[] ids) {
+        StringBuffer sb = new StringBuffer("delete from t_order_detail where id in(");
+        for (int i = 0;i <ids.length;i++){
+            if(i == ids.length -1){
+                sb.append("?)");
+            }else{
+                sb.append("?,");
+            }
+        }
+        String sql = sb.toString();
+        System.out.println(sql);
+        QueryRunner queryRunner = DBCP.getQueryRunner();
+        try {
+            int update = queryRunner.update(sql,ids);
+            System.out.println(update);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

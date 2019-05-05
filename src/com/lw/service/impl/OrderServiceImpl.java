@@ -26,4 +26,10 @@ public class OrderServiceImpl implements OrderService {
     public int deleteOrderById(int id, String table) {
         return orderDao.deleteOrderById(id,table);
     }
+
+    @Override
+    public void batchDel(String[] ids) {
+        orderDao.batchDel(ids);
+
+    }
 }
