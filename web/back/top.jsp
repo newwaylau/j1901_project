@@ -44,7 +44,7 @@ $(function(){
     <ul>
     <li><span><img src="images/help.png" title="帮助"  class="helpimg"/></span><a href="#">帮助</a></li>
     <li><a href="#">关于</a></li>
-    <li><a href="UserServlet?action=backExit" target="_parent">退出</a></li>
+    <li><a href="/backlogin" target="_parent">退出</a></li>
     </ul>
      
     <div class="user">

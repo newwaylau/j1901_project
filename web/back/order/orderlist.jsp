@@ -35,13 +35,13 @@
 	<div class="rightinfo">
 		<div class="tools">
 
-			<ul class="toolbar">
+			<%--<ul class="toolbar">
 				<li class="click"><span><img src="images/t01.png" /></span><a
 					href="back/user/adduser.jsp">添加</a></li>
 				<li class="click"><span><img src="images/t02.png" /></span>修改</li>
 				<li><span><img src="images/t03.png" /></span>删除</li>
 				<li><span><img src="images/t04.png" /></span>统计</li>
-			</ul>
+			</ul>--%>
 
 			<ul class="toolbar1">
 				<li><span><img src="images/t05.png" /></span>设置</li>
@@ -78,12 +78,13 @@
 						<div class="order-main">
 							<div class="order-list">
 									<!--交易成功。-->
+								<c:forEach items="${page.list}" var="order">
 									<div class="order-status5">
 										<div class="order-title">
 											<div class="dd-num">
-												订单编号：<a href="javascript:;">201723242</a>
+												订单编号：<a href="javascript:;">${order.o_orderid}</a>
 											</div>
-											<span>成交时间：</span>2017-04-12
+											<span>成交时间：</span>${order.goods_date}
 										</div>
 											<div class="order-content">
 												<div class="order-left">
@@ -91,24 +92,24 @@
 														<li class="td td-item">
 															<div class="item-pic">
 																<a href="#" class="J_MakePoint">
-																 <img src="" class="itempic J_ItemImg"></img>
+																 <img src="/images/${order.goodspic}" class="itempic J_ItemImg"></img>
 																 </a>
 															</div>
 															<div class="item-info">
 																<div class="item-basic-info">
 																	<a href="#">
-																		<p>达利园 瑞士卷蛋糕（芒果味）240g/袋（12枚）</p>
+																		<p>${order.goods_description}</p>
 																	</a>
 																</div>
 															</div>
 														</li>
 														<li class="td td-price">
-															<div class="item-price">10.90</div>
+															<div class="item-price">${order.goodsprice}</div>
 														</li>
 														<li class="td td-number">
 															<div class="item-number">
 																<span>×</span>
-																4
+																${order.goodsnum}
 															</div>
 														</li>
 														<li class="td td-operation">
@@ -119,7 +120,7 @@
 												<div class="order-right">
 													<li class="td td-amount">
 														<div class="item-amount">
-															合计：39.24</div>
+															合计：${order.goods_total_price}</div>
 													</li>
 													<div class="move-right">
 														<li class="td td-status">
@@ -131,12 +132,21 @@
 															</div>
 														</li>
 														<li class="td td-change">
-															<div class="am-btn am-btn-danger anniu">删除订单</div>
+															<div class="am-btn am-btn-danger anniu"><a href="/orderdelete?id=${order.id}">删除订单</a></div>
 														</li>
 													</div>
 												</div>
 											</div>
 									</div>
+                                    </c:forEach>
+								<a href="${page.url}?currentPage=1">首页</a>
+								<c:if test="${page.currentPage >1}">
+									<a href="${page.url}?currentPage=${page.currentPage-1}">上一页</a>
+								</c:if>
+								<c:if test="${page.currentPage < page.totalPage}">
+									<a href="${page.url}?currentPage=${page.currentPage+1}">下一页</a>
+								</c:if>
+								<a href="${page.url}?currentPage=${page.totalPage}">尾页</a>
 							</div>
 
 						</div>
