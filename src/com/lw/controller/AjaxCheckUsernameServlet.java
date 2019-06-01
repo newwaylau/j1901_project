@@ -23,6 +23,8 @@ public class AjaxCheckUsernameServlet extends HttpServlet {
         System.out.println(username);
         int i = userService.checkUsername(username);
         System.out.println(i==1);
+        
+        System.out.println("1");
         if (i == 1) {
             PrintWriter writer = response.getWriter();
             writer.write("0");
